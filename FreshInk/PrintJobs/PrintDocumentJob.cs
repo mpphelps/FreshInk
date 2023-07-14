@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Printing;
 
 namespace FreshInk
@@ -12,8 +13,12 @@ namespace FreshInk
             printDocument = new PrintDocument();
         }
 
-        public void LoadDocument()
+        public void LoadDocument(string fileName)
         {
+            if (fileName != "Default")
+            {
+                throw new Exception("Invalid document to print.");
+            }
             printDocument.PrintPage += PrintDocument_PrintPage;
         }
 

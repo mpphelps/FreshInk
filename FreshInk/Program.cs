@@ -11,9 +11,7 @@ namespace PrinterTestApp
     {
         static void Main(string[] args)
         {
-            PrinterManager printerManager = PrinterManager.Instance(
-                new JsonPrintTestConfigParser(),
-                new PrintDocumentJob());
+            PrinterManager printerManager = PrinterManager.Instance();
             printerManager.RunPrintTests();
             Environment.Exit(0);
         }

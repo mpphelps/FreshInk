@@ -25,16 +25,34 @@ namespace FreshInk
             
         }
 
-        public void LoadDocument()
+        public void LoadDocument(string fileName)
         {
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "PrintTest.docx");
-            wordDoc = wordApp.Documents.Open(filePath, ReadOnly: true);
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), fileName);
+            if (File.Exists(filePath))
+            {
+                wordDoc = wordApp.Documents.Open(filePath, ReadOnly: true);
+            }
+            else
+            {
+                throw new Exception("Test file specified does not exist.");
+            }
         }
 
         public void PrintDocumentTo(string printerName)
         {
-            wordApp.ActivePrinter = printerName;
-            wordDoc.PrintOut(Background: false, PrintToFile: false);
+            try
+            {
+                wordApp.ActivePrinter = printerName;
+                wordDoc.PrintOut(Background: false, PrintToFile: false);
+            }
+            catch (COMException ex)
+            {
+                throw new Exception("The is an COM error printing to the document, did Word get closed?", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Exception occurred while printing.", ex);
+            }
         }
 
         public void CloseDocument()

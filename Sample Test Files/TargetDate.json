@@ -1,4 +1,6 @@
 {
+    "TestDocument":"Default",
+    "TestInterval":20,
     "Configs":
     [
         {
@@ -7,6 +9,5 @@
         {
             "TargetDate":"2023-07-12T00:00:00-04:00","PrinterName":"Microsoft Print to PDF"
         }
-    ],
-    "Count":0
+    ]    
 }

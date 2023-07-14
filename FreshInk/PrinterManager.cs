@@ -10,19 +10,18 @@ namespace FreshInk
         private IPrintTestConfigParser _parser;
         private IPrintJob _job;
 
-        private PrinterManager(IPrintTestConfigParser parser, IPrintJob job)
+        private PrinterManager()
         {
-            _parser = parser;
-            _job = job;
+            _parser = new JsonPrintTestConfigParser();
         }
 
-        public static PrinterManager Instance(IPrintTestConfigParser parser, IPrintJob job)
+        public static PrinterManager Instance()
         {
             if (instance == null)
             {
                 lock (lockObject)
                 {
-                    instance = new PrinterManager(parser, job);
+                    instance = new PrinterManager();
                 }
             }
             return instance;
@@ -32,21 +31,40 @@ namespace FreshInk
         {
 
             PrintTestConfigs configs = _parser.ParsePrintTestConfigs();
-            
 
+            _job = GetDocumentJob(configs.TestDocument);
+            if (_job is PrintDocumentJob)
+                configs.TestDocument = "Default";
+
+            _job.LoadDocument(configs.TestDocument);
             foreach (var config in configs.Configs)
             {
                 if (DateTime.Now > config.TargetDate)
                 {
-                    _job.LoadDocument();
+                    
                     _job.PrintDocumentTo(config.PrinterName);
-                    config.TargetDate = config.TargetDate.AddDays(14);
-                    _job.CloseDocument();
+                    config.TargetDate = config.TargetDate.AddDays(configs.TestInterval);
+                    
                 }
             }
+            _job.CloseDocument();
 
             _parser.SerializePrintTestConfigs(configs);
             
+        }
+
+        private IPrintJob GetDocumentJob(string documentName)
+        {
+            if (documentName == "Default")
+            {
+                return new PrintDocumentJob();
+            }
+            if (documentName.EndsWith(".docx"))
+            {
+                return new WordDocumentJob();
+            }
+            return new PrintDocumentJob();
+
         }
     }
 }
