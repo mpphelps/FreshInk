@@ -8,4 +8,4 @@ To make your program run on computer startup, you can follow these steps:
     2: Type "shell:startup" and press Enter. This will open the Startup folder.
     3: Create a shortcut to the program (the .exe file) and move it to the Startup folder.
 
-By placing a shortcut to your program in the Startup folder, it will be executed automatically each time the computer starts up.
+By placing a shortcut to your program in the Startup folder, it will be executed automatically each time the computer starts up.  Once the program has completed the date check (and run print test if needed), the program will terminate.  
