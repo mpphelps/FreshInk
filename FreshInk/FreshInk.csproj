@@ -53,13 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileLogger.cs" />
     <Compile Include="PrintJobs\IPrintJob.cs" />
     <Compile Include="Parsing\IPrintTestConfigParser.cs" />
     <Compile Include="Parsing\JsonPrintTestConfigParser.cs" />
     <Compile Include="PrintJobs\PrintDocumentJob.cs" />
     <Compile Include="PrinterManager.cs" />
     <Compile Include="ParsingObjects\PrintTestConfig.cs" />
-    <Compile Include="ParsingObjects\PrintTestConfigs.cs" />
     <Compile Include="PrintJobs\WordDocumentJob.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

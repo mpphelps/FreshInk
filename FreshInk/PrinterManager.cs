@@ -30,26 +30,31 @@ namespace FreshInk
         public void RunPrintTests()
         {
 
-            PrintTestConfigs configs = _parser.ParsePrintTestConfigs();
+            PrintTestConfig config = _parser.ParsePrintTestConfigs();
 
-            _job = GetDocumentJob(configs.TestDocument);
-            if (_job is PrintDocumentJob)
-                configs.TestDocument = "Default";
-
-            _job.LoadDocument(configs.TestDocument);
-            foreach (var config in configs.Configs)
+            try
             {
-                if (DateTime.Now > config.TargetDate)
+                _job = GetDocumentJob(config.TestDocument);
+            }
+            catch
+            {
+                _job = new PrintDocumentJob();
+                config.TestDocument = "Default";
+            }
+
+            _job.LoadDocument(config.TestDocument);
+            if (DateTime.Now > config.TargetDate)
+            {
+                foreach (var printer in config.PrinterNames)
                 {
-                    
-                    _job.PrintDocumentTo(config.PrinterName);
-                    config.TargetDate = config.TargetDate.AddDays(configs.TestInterval);
-                    
+                    FileLogger.LogInformation($"Printing {config.TestDocument} test run for printer: {printer}");
+                    _job.PrintDocumentTo(printer);
+                    config.TargetDate = config.TargetDate.AddDays(config.TestInterval);
                 }
             }
             _job.CloseDocument();
 
-            _parser.SerializePrintTestConfigs(configs);
+            _parser.SerializePrintTestConfigs(config);
             
         }
 
@@ -59,12 +64,16 @@ namespace FreshInk
             {
                 return new PrintDocumentJob();
             }
-            if (documentName.EndsWith(".docx"))
+            else if (documentName.EndsWith(".docx"))
             {
                 return new WordDocumentJob();
             }
-            return new PrintDocumentJob();
-
+            else
+            {
+                string message = "Document job specified is invalid, will use default.";
+                FileLogger.LogError(message);
+                throw new Exception(message);
+            }
         }
     }
 }

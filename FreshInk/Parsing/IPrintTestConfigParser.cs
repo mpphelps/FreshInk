@@ -2,8 +2,8 @@
 {
     internal interface IPrintTestConfigParser
     {
-        PrintTestConfigs ParsePrintTestConfigs();
-        void SerializePrintTestConfigs(PrintTestConfigs config);
+        PrintTestConfig ParsePrintTestConfigs();
+        void SerializePrintTestConfigs(PrintTestConfig config);
     }
 
 }

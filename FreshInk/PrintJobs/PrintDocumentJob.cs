@@ -17,7 +17,7 @@ namespace FreshInk
         {
             if (fileName != "Default")
             {
-                throw new Exception("Invalid document to print.");
+                FileLogger.LogError("Invalid document to print.");
             }
             printDocument.PrintPage += PrintDocument_PrintPage;
         }

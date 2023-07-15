@@ -18,33 +18,26 @@ namespace FreshInk
         }
 
 
-        public PrintTestConfigs ParsePrintTestConfigs()
+        public PrintTestConfig ParsePrintTestConfigs()
         {
             if (File.Exists(_filePath))
             {
                 try
                 {
                     string json = File.ReadAllText(_filePath);
-                    return JsonConvert.DeserializeObject<PrintTestConfigs>(json);
+                    return JsonConvert.DeserializeObject<PrintTestConfig>(json);
                 }
                 catch(JsonException ex)
                 {
-                    throw new Exception("Error deserializing JSON", ex);
+                    FileLogger.LogError("Error deserializing JSON, using default test.", ex);
                 }
                 
             }
-            else
-            {
-                var defaultConfig = new PrintTestConfigs();
-                defaultConfig.Configs.Add(new PrintTestConfig()
-                {
-                    TargetDate = DateTime.Now.Date,
-                    PrinterName = "Microsoft Print to PDF"
-                });
-                return defaultConfig;
-            }
+            var defaultConfig = new PrintTestConfig();
+            defaultConfig.PrinterNames.Add("Microsoft Print to PDF");
+            return defaultConfig;
         }
-        public void SerializePrintTestConfigs(PrintTestConfigs config)
+        public void SerializePrintTestConfigs(PrintTestConfig config)
         {
             try
             {
@@ -53,11 +46,11 @@ namespace FreshInk
             }
             catch (JsonException ex)
             {
-                throw new Exception("Error serializing JSON", ex);
+                FileLogger.LogError("Error serializing JSON", ex);
             }
             catch (IOException ex)
             {
-                throw new Exception("Error writing to file", ex);
+                FileLogger.LogError("Error writing to file", ex);
             }
         }
     }
