@@ -20,7 +20,7 @@ namespace FreshInk
             }
             catch (COMException ex)
             {
-                FileLogger.LogError("Error create Microsoft Word application, is Word installed?", ex);
+                FileLogger.LogError("Error creating Microsoft Word application, is Word installed?");
                 throw ex;
             }
         }
@@ -34,7 +34,7 @@ namespace FreshInk
             }
             else
             {
-                FileLogger.LogError("Test file specified does not exist.");
+                throw new Exception("Test file specified does not exist.");
             }
         }
 

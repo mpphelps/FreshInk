@@ -9,10 +9,12 @@ namespace FreshInk
 
         private IPrintTestConfigParser _parser;
         private IPrintJob _job;
+        private PrintTestConfig _config;
 
         private PrinterManager()
         {
             _parser = new JsonPrintTestConfigParser();
+            _config = _parser.ParsePrintTestConfigs();
         }
 
         public static PrinterManager Instance()
@@ -29,33 +31,32 @@ namespace FreshInk
 
         public void RunPrintTests()
         {
+            CreatePrintJob();
+            LoadPrintDocument();
 
-            PrintTestConfig config = _parser.ParsePrintTestConfigs();
+            if (DateTime.Now > _config.TargetDate)
+            {
+                PrintTests();
+            }
 
+            ClosePrintDocument();
+
+            _parser.SerializePrintTestConfigs(_config);
+
+        }
+
+        private void CreatePrintJob()
+        {
             try
             {
-                _job = GetDocumentJob(config.TestDocument);
+                _job = GetDocumentJob(_config.TestDocument);
             }
-            catch
+            catch (Exception ex)
             {
+                FileLogger.LogError("Failed to get document job, will use default test.", ex);
                 _job = new PrintDocumentJob();
-                config.TestDocument = "Default";
+                _config.TestDocument = "Default";
             }
-
-            _job.LoadDocument(config.TestDocument);
-            if (DateTime.Now > config.TargetDate)
-            {
-                foreach (var printer in config.PrinterNames)
-                {
-                    FileLogger.LogInformation($"Printing {config.TestDocument} test run for printer: {printer}");
-                    _job.PrintDocumentTo(printer);
-                    config.TargetDate = config.TargetDate.AddDays(config.TestInterval);
-                }
-            }
-            _job.CloseDocument();
-
-            _parser.SerializePrintTestConfigs(config);
-            
         }
 
         private IPrintJob GetDocumentJob(string documentName)
@@ -70,9 +71,52 @@ namespace FreshInk
             }
             else
             {
-                string message = "Document job specified is invalid, will use default.";
-                FileLogger.LogError(message);
-                throw new Exception(message);
+                throw new Exception("Document job specified is invalid");
+            }
+        }
+
+        private void LoadPrintDocument()
+        {
+            try
+            {
+                _job.LoadDocument(_config.TestDocument);
+            }
+            catch (Exception ex)
+            {
+                FileLogger.LogError("Failed to load test document, will use default test.", ex);
+                _job = new PrintDocumentJob();
+                _config.TestDocument = "Default";
+                _job.LoadDocument(_config.TestDocument);
+            }
+        }
+
+        private void PrintTests()
+        {
+            foreach (var printer in _config.PrinterNames)
+            {
+                FileLogger.LogInformation($"Printing {_config.TestDocument} test run for printer: {printer}");
+                try
+                {
+                    _job.PrintDocumentTo(printer);
+                }
+                catch (Exception ex)
+                {
+                    FileLogger.LogError($"Failed to print test for printer {printer}.  Check printer name exists or spelling.", ex);
+                }
+
+                _config.TargetDate = _config.TargetDate.AddDays(_config.TestInterval);
+            }
+        }
+
+        private void ClosePrintDocument()
+        {
+            try
+            {
+                _job.CloseDocument();
+            }
+            catch (Exception ex)
+            {
+                FileLogger.LogError("error closing print job", ex);
             }
         }
     }
