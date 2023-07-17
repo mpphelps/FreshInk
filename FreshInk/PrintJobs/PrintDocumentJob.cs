@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Drawing;
 using System.Drawing.Printing;
+
 
 namespace FreshInk
 {
@@ -36,33 +38,53 @@ namespace FreshInk
         private static void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Font font = new Font("Arial", 11);
+            var font = new System.Drawing.Font("Arial", 10);
             string testContent = "This is a test page.";
             float startY = 10f; // Starting Y coordinate
+            float lengthMultiplier = 6;
 
-            for (int i = 0; i < 43; i++)
+            PointF startPoint = new PointF(10f, startY);
+
+            var colors = new Brush[] { 
+                Brushes.Red,
+                Brushes.Green,
+                Brushes.Blue,
+                Brushes.Cyan,
+                Brushes.Magenta,
+                Brushes.Yellow,
+                Brushes.Black
+            };
+
+            int c = 0;
+            startPoint.Y = 50;
+            for (int i = 0; i < 62; i++)
             {
-                PointF startPoint = new PointF(10f, startY);
+                startPoint.X = 65;
 
-                graphics.DrawString(testContent, font, Brushes.Red, startPoint);
-                startPoint.Y += font.Height; // Adjust Y coordinate
+                graphics.DrawString(testContent, font, colors[c++], startPoint);
+                if (c == colors.Length) c = 0;
+                startPoint.X += testContent.Length * lengthMultiplier;
 
-                graphics.DrawString(testContent, font, Brushes.Green, startPoint);
-                startPoint.Y += font.Height;
+                graphics.DrawString(testContent, font, colors[c++], startPoint);
+                if (c == colors.Length) c = 0;
+                startPoint.X += testContent.Length * lengthMultiplier;
 
-                graphics.DrawString(testContent, font, Brushes.Blue, startPoint);
-                startPoint.Y += font.Height;
+                graphics.DrawString(testContent, font, colors[c++], startPoint);
+                if (c == colors.Length) c = 0;
+                startPoint.X += testContent.Length * lengthMultiplier;
 
-                graphics.DrawString(testContent, font, Brushes.Cyan, startPoint);
-                startPoint.Y += font.Height;
+                graphics.DrawString(testContent, font, colors[c++], startPoint);
+                if (c == colors.Length) c = 0;
+                startPoint.X += testContent.Length * lengthMultiplier;
 
-                graphics.DrawString(testContent, font, Brushes.Magenta, startPoint);
-                startPoint.Y += font.Height;
+                graphics.DrawString(testContent, font, colors[c++], startPoint);
+                if (c == colors.Length) c = 0;
+                startPoint.X += testContent.Length * lengthMultiplier;
 
-                graphics.DrawString(testContent, font, Brushes.Yellow, startPoint);
-                startPoint.Y += font.Height;
+                graphics.DrawString(testContent, font, colors[c++], startPoint);
+                if (c == colors.Length) c = 0;
+                startPoint.X += testContent.Length * lengthMultiplier;
 
-                graphics.DrawString(testContent, font, Brushes.Black, startPoint);
                 startPoint.Y += font.Height;
             }
         }
