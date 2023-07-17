@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FreshInk
 {
@@ -31,6 +32,7 @@ namespace FreshInk
 
         public void RunPrintTests()
         {
+            RemoveDuplicatePrinters();
             CreatePrintJob();
             LoadPrintDocument();
 
@@ -43,6 +45,29 @@ namespace FreshInk
 
             _parser.SerializePrintTestConfigs(_config);
 
+        }
+
+        private void RemoveDuplicatePrinters()
+        {
+            var printerSet = new HashSet<string>();
+            var removeSet = new HashSet<string>();
+            foreach(var printer in _config.PrinterNames)
+            {
+                if (!printerSet.Contains(printer)) 
+                { 
+                    printerSet.Add(printer); 
+                }
+                else 
+                {
+                    removeSet.Add(printer);
+                }
+            }
+
+            foreach(var printer in removeSet)
+            {
+                _config.PrinterNames.Remove(printer);
+                FileLogger.LogInformation($"{printer} is listed twice, removing from config");
+            }
         }
 
         private void CreatePrintJob()
