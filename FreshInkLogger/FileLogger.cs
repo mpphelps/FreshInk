@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace FreshInk
+namespace FreshInkLogger
 {
     public static class FileLogger
     {

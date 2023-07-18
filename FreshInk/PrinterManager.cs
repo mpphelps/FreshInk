@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FreshInkLogger;
+using FreshInkParser;
+using System;
 using System.Collections.Generic;
 
 namespace FreshInk

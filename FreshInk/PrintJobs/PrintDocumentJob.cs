@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using FreshInkLogger;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Drawing;
 using System.Drawing.Printing;

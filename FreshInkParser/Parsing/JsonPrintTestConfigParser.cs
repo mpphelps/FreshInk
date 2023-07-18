@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using FreshInkLogger;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace FreshInk
+namespace FreshInkParser
 {
-    internal class JsonPrintTestConfigParser : IPrintTestConfigParser
+    public class JsonPrintTestConfigParser : IPrintTestConfigParser
     {
         private string _filePath;
         public JsonPrintTestConfigParser()

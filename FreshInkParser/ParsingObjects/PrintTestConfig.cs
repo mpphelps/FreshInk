@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FreshInk
+namespace FreshInkParser
 {
-    internal class PrintTestConfig
+    public class PrintTestConfig
     {
         public string TestDocument { get; set; }
         public int TestInterval { get; set; }

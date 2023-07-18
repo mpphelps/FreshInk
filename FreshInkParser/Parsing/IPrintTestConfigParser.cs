@@ -1,6 +1,6 @@
-﻿namespace FreshInk
+﻿namespace FreshInkParser
 {
-    internal interface IPrintTestConfigParser
+    public interface IPrintTestConfigParser
     {
         PrintTestConfig ParsePrintTestConfigs();
         void SerializePrintTestConfigs(PrintTestConfig config);
