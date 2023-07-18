@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using FreshInk;
-using Newtonsoft.Json;
 
 namespace PrinterTestApp
 {
