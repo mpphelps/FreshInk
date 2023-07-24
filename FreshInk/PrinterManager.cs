@@ -128,9 +128,10 @@ namespace FreshInk
                 try
                 {
                     _job.PrintDocumentTo(printer);
-                    if (DidPrintSucceed(printer))
+                    if (DidPrintFail(printer, out PrintQueueStatus status))
                     {
-                        _config.TargetDate = _config.TargetDate.AddDays(_config.TestInterval);
+                        MessageBox.Show($"Error printing test job.\nStatus of {printer}: {status}");
+                        FileLogger.LogError($"Status of {printer}: {status}");
                     }
                     
                 }
@@ -138,23 +139,16 @@ namespace FreshInk
                 {
                     FileLogger.LogError($"Failed to print test for printer {printer}.  Check printer name exists or spelling.", ex);
                 }
-
-                
             }
+            _config.TargetDate = _config.TargetDate.AddDays(_config.TestInterval);
         }
 
-        private bool DidPrintSucceed(string printer)
+        private bool DidPrintFail(string printer, out PrintQueueStatus printStatus)
         {
             var printServer = new LocalPrintServer();
             var printQueue = printServer.GetPrintQueue(printer);
-            var printStatus = printQueue.QueueStatus;
-            if (printStatus != PrintQueueStatus.None)
-            {
-                MessageBox.Show($"Error printing test job.\nStatus of {printer}: {printStatus}");
-                FileLogger.LogError($"Status of {printer}: {printStatus}");
-                return false;
-            }
-            return true;
+            printStatus = printQueue.QueueStatus;
+            return printStatus != PrintQueueStatus.None;
         }
 
         private void ClosePrintDocument()
