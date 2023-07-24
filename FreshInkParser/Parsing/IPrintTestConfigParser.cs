@@ -2,8 +2,7 @@
 {
     public interface IPrintTestConfigParser
     {
-        PrintTestConfig ParsePrintTestConfigs();
-        void SerializePrintTestConfigs(PrintTestConfig config);
+        PrintTestConfig GetConfigs();
+        void SaveConfigs(PrintTestConfig config);
     }
-
 }

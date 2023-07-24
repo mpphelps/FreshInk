@@ -1,7 +1,5 @@
 {
     "TestDocument":"Default",
-    "TestInterval":20,
-    "TargetDate":"2023-07-12T00:00:00-04:00",
     "PrinterNames":
     [
         "Brother MFC-J1170DW Printer",

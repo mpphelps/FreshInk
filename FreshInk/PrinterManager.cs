@@ -20,7 +20,6 @@ namespace FreshInk
         private PrinterManager()
         {
             _parser = new JsonPrintTestConfigParser();
-            _config = _parser.ParsePrintTestConfigs();
         }
 
         public static PrinterManager Instance()
@@ -37,19 +36,17 @@ namespace FreshInk
 
         public void RunPrintTests()
         {
+            GetConfigs();
             RemoveDuplicatePrinters();
             CreatePrintJob();
             LoadPrintDocument();
-
-            if (DateTime.Now > _config.TargetDate)
-            {
-                PrintTests();
-            }
-
+            PrintTests();
             ClosePrintDocument();
+        }
 
-            _parser.SerializePrintTestConfigs(_config);
-
+        private void GetConfigs()
+        {
+            _config = _parser.GetConfigs();
         }
 
         private void RemoveDuplicatePrinters()
@@ -71,6 +68,7 @@ namespace FreshInk
             foreach(var printer in removeSet)
             {
                 _config.PrinterNames.Remove(printer);
+                _parser.SaveConfigs(_config);
                 FileLogger.LogInformation($"{printer} is listed twice, removing from config");
             }
         }
@@ -86,6 +84,7 @@ namespace FreshInk
                 FileLogger.LogError("Failed to get document job, will use default test.", ex);
                 _job = new PrintDocumentJob();
                 _config.TestDocument = "Default";
+                _parser.SaveConfigs(_config);
             }
         }
 
@@ -115,32 +114,41 @@ namespace FreshInk
             {
                 FileLogger.LogError("Failed to load test document, will use default test.", ex);
                 _job = new PrintDocumentJob();
-                _config.TestDocument = "Default";
+                // If for some reason a bad test document is specified, this will resave with the default.
+                _config.TestDocument = "Default";                
+                _parser.SaveConfigs(_config);
                 _job.LoadDocument(_config.TestDocument);
             }
         }
 
         private void PrintTests()
         {
+            var invalidPrinters = new List<string>();
             foreach (var printer in _config.PrinterNames)
             {
-                FileLogger.LogInformation($"Printing {_config.TestDocument} test run for printer: {printer}");
+                FileLogger.LogInformation($"Printing {_config.TestDocument} test run for printer: '{printer}'");
                 try
                 {
                     _job.PrintDocumentTo(printer);
                     if (DidPrintFail(printer, out PrintQueueStatus status))
                     {
-                        MessageBox.Show($"Error printing test job.\nStatus of {printer}: {status}");
+                        MessageBox.Show($"Error printing test job.\nStatus of '{printer}': {status}");
                         FileLogger.LogError($"Status of {printer}: {status}");
                     }
                     
                 }
                 catch (Exception ex)
                 {
-                    FileLogger.LogError($"Failed to print test for printer {printer}.  Check printer name exists or spelling.", ex);
+                    // If for some reason an invalid printer is in the list, remove it and resave config
+                    invalidPrinters.Add(printer);
+                    FileLogger.LogError($"Failed to print test for printer '{printer}'.  Check printer name exists or spelling.  Removing '{printer}' from coniguration.", ex);
                 }
             }
-            _config.TargetDate = _config.TargetDate.AddDays(_config.TestInterval);
+            foreach(var printer in invalidPrinters)
+            {
+                _config.PrinterNames.Remove(printer);
+                _parser.SaveConfigs(_config);
+            }
         }
 
         private bool DidPrintFail(string printer, out PrintQueueStatus printStatus)
@@ -163,6 +171,4 @@ namespace FreshInk
             }
         }
     }
-
-    
 }
