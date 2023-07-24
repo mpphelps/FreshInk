@@ -15,7 +15,7 @@ namespace PrinterTestApp
         {
             PrinterManager printerManager = PrinterManager.Instance();
             printerManager.RunPrintTests();
-            FileLogger.LogInformation($"FreshInk successfully completed.");
+            FileLogger.LogInformation($"FreshInk completed.");
         }
     }
 }
