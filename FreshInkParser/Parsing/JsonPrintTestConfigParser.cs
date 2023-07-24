@@ -10,7 +10,7 @@ namespace FreshInkParser
         private string _filePath;
         public JsonPrintTestConfigParser()
         {
-            _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "TargetDate.json");
+            _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "TestConfig.json");
         }
 
         public JsonPrintTestConfigParser(string filePath)
