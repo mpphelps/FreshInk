@@ -1,7 +1,10 @@
 ﻿using FreshInkLogger;
 using FreshInkParser;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
+using System.Printing;
+using System.Windows.Forms;
 
 namespace FreshInk
 {
@@ -125,14 +128,33 @@ namespace FreshInk
                 try
                 {
                     _job.PrintDocumentTo(printer);
+                    if (DidPrintSucceed(printer))
+                    {
+                        _config.TargetDate = _config.TargetDate.AddDays(_config.TestInterval);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
                     FileLogger.LogError($"Failed to print test for printer {printer}.  Check printer name exists or spelling.", ex);
                 }
 
-                _config.TargetDate = _config.TargetDate.AddDays(_config.TestInterval);
+                
             }
+        }
+
+        private bool DidPrintSucceed(string printer)
+        {
+            var printServer = new LocalPrintServer();
+            var printQueue = printServer.GetPrintQueue(printer);
+            var printStatus = printQueue.QueueStatus;
+            if (printStatus != PrintQueueStatus.None)
+            {
+                MessageBox.Show($"Error printing test job.\nStatus of {printer}: {printStatus}");
+                FileLogger.LogError($"Status of {printer}: {printStatus}");
+                return false;
+            }
+            return true;
         }
 
         private void ClosePrintDocument()
@@ -147,4 +169,6 @@ namespace FreshInk
             }
         }
     }
+
+    
 }
