@@ -9,7 +9,7 @@ namespace FreshInk
 {
     internal class PrintDocumentJob : IPrintJob
     {
-        PrintDocument printDocument;
+        private PrintDocument printDocument;
 
         public PrintDocumentJob()
         {

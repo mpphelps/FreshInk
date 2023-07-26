@@ -10,7 +10,7 @@ namespace FreshInkParser
         private string _filePath;
         public JsonPrintTestConfigParser()
         {
-            _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "TargetDate.json");
+            _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "TestConfig.json");
         }
 
         public JsonPrintTestConfigParser(string filePath)
@@ -19,7 +19,7 @@ namespace FreshInkParser
         }
 
 
-        public PrintTestConfig ParsePrintTestConfigs()
+        public PrintTestConfig GetConfigs()
         {
             if (File.Exists(_filePath))
             {
@@ -38,7 +38,7 @@ namespace FreshInkParser
             defaultConfig.PrinterNames.Add("Microsoft Print to PDF");
             return defaultConfig;
         }
-        public void SerializePrintTestConfigs(PrintTestConfig config)
+        public void SaveConfigs(PrintTestConfig config)
         {
             try
             {
