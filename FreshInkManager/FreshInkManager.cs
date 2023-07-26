@@ -19,7 +19,9 @@ namespace FreshInkManager
 
         private void FreshInkManager_Load(object sender, EventArgs e)
         {
-
+            ListView_Printers.Items.Add("Printer1");
+            ListView_Printers.Items.Add("Printer2");
+            ListView_Printers.Items.Add("Printer3");
         }
     }
 }
