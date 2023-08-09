@@ -1,10 +1,8 @@
-﻿using FreshInkLogger;
-using FreshInkRegistryManager;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace FreshInkParser
+namespace FreshInkUtilities
 {
     public class JsonPrintTestConfigParser : IPrintTestConfigParser
     {
@@ -29,11 +27,11 @@ namespace FreshInkParser
                     string json = File.ReadAllText(_filePath);
                     return JsonConvert.DeserializeObject<PrintTestConfig>(json);
                 }
-                catch(JsonException ex)
+                catch (JsonException ex)
                 {
                     FileLogger.LogError("Error deserializing JSON, using default test.", ex);
                 }
-                
+
             }
             var defaultConfig = new PrintTestConfig();
             defaultConfig.PrinterNames.Add("Microsoft Print to PDF");

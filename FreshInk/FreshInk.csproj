@@ -63,17 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FreshInkLogger\FreshInkLogger.csproj">
-      <Project>{4a818718-fbe0-496e-8299-e74b0fc90369}</Project>
-      <Name>FreshInkLogger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FreshInkParser\FreshInkParser.csproj">
-      <Project>{3db08e76-ba68-43ed-819a-97806719c5d1}</Project>
-      <Name>FreshInkParser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FreshInkRegistryManager\FreshInkRegistryManager.csproj">
-      <Project>{dd8505da-5b2f-4778-bfc9-362d84176a16}</Project>
-      <Name>FreshInkRegistryManager</Name>
+    <ProjectReference Include="..\FreshInkUtilities\FreshInkUtilities.csproj">
+      <Project>{a43fd4e1-a655-41a4-b3fb-91b2aa35f5d5}</Project>
+      <Name>FreshInkUtilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

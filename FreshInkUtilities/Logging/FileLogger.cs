@@ -1,8 +1,11 @@
-﻿using FreshInkRegistryManager;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FreshInkLogger
+namespace FreshInkUtilities
 {
     public static class FileLogger
     {

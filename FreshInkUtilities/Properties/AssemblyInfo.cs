@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FreshInkRegistryManager")]
+[assembly: AssemblyTitle("FreshInkUtilities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FreshInkRegistryManager")]
+[assembly: AssemblyProduct("FreshInkUtilities")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dd8505da-5b2f-4778-bfc9-362d84176a16")]
+[assembly: Guid("a43fd4e1-a655-41a4-b3fb-91b2aa35f5d5")]
 
 // Version information for an assembly consists of the following four values:
 //

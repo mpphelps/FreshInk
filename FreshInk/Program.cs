@@ -4,8 +4,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Printing;
 using FreshInk;
-using FreshInkLogger;
-using FreshInkParser;
+using FreshInkUtilities;
 
 namespace PrinterTestApp
 {

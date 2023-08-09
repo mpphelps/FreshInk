@@ -1,6 +1,5 @@
-﻿using FreshInkLogger;
-using FreshInkParser;
-using Microsoft.Office.Interop.Word;
+﻿using Microsoft.Office.Interop.Word;
+using FreshInkUtilities;
 using System;
 using System.Collections.Generic;
 using System.Printing;

@@ -213,6 +213,7 @@
             this.Controls.Add(this.Label_Interval);
             this.Controls.Add(this.Label_TargetDate);
             this.Controls.Add(this.Button_RunTest);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FreshInkManager";
             this.Text = "Fresh Ink Manager";
             this.Load += new System.EventHandler(this.FreshInkManager_Load);

@@ -86,13 +86,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FreshInkParser\FreshInkParser.csproj">
-      <Project>{3db08e76-ba68-43ed-819a-97806719c5d1}</Project>
-      <Name>FreshInkParser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FreshInkRegistryManager\FreshInkRegistryManager.csproj">
-      <Project>{DD8505DA-5B2F-4778-BFC9-362D84176A16}</Project>
-      <Name>FreshInkRegistryManager</Name>
+    <ProjectReference Include="..\FreshInkUtilities\FreshInkUtilities.csproj">
+      <Project>{a43fd4e1-a655-41a4-b3fb-91b2aa35f5d5}</Project>
+      <Name>FreshInkUtilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

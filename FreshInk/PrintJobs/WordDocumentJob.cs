@@ -3,8 +3,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.InteropServices;
-using FreshInkLogger;
-using FreshInkRegistryManager;
+using FreshInkUtilities;
 using Microsoft.Office.Interop.Word;
 
 namespace FreshInk

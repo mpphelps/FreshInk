@@ -5,8 +5,8 @@ using Task = Microsoft.Win32.TaskScheduler.Task;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using FreshInkRegistryManager;
 using System.IO;
+using FreshInkUtilities;
 
 namespace FreshInkManager
 {

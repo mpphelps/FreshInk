@@ -1,4 +1,4 @@
-﻿using FreshInkLogger;
+﻿using FreshInkUtilities;
 using Microsoft.Office.Interop.Word;
 using System;
 using System.Drawing;
