@@ -90,6 +90,10 @@
       <Project>{3db08e76-ba68-43ed-819a-97806719c5d1}</Project>
       <Name>FreshInkParser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FreshInkRegistryManager\FreshInkRegistryManager.csproj">
+      <Project>{DD8505DA-5B2F-4778-BFC9-362D84176A16}</Project>
+      <Name>FreshInkRegistryManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

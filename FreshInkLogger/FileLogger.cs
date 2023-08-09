@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FreshInkRegistryManager;
+using System;
 using System.IO;
 
 namespace FreshInkLogger
@@ -9,7 +10,7 @@ namespace FreshInkLogger
 
         static FileLogger()
         {
-            _logFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "FreshInkLog.txt");
+            _logFilePath = Path.Combine(RegistryManager.GetConfigPath(), "FreshInkLog.txt");
         }
 
         public static void LogInformation(string message)

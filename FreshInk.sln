@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshInkParser", "FreshInkP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshInkLogger", "FreshInkLogger\FreshInkLogger.csproj", "{4A818718-FBE0-496E-8299-E74B0FC90369}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshInkRegistryManager", "FreshInkRegistryManager\FreshInkRegistryManager.csproj", "{DD8505DA-5B2F-4778-BFC9-362D84176A16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4A818718-FBE0-496E-8299-E74B0FC90369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A818718-FBE0-496E-8299-E74B0FC90369}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A818718-FBE0-496E-8299-E74B0FC90369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD8505DA-5B2F-4778-BFC9-362D84176A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD8505DA-5B2F-4778-BFC9-362D84176A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD8505DA-5B2F-4778-BFC9-362D84176A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD8505DA-5B2F-4778-BFC9-362D84176A16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

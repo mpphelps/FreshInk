@@ -4,6 +4,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.InteropServices;
 using FreshInkLogger;
+using FreshInkRegistryManager;
 using Microsoft.Office.Interop.Word;
 
 namespace FreshInk
@@ -28,7 +29,7 @@ namespace FreshInk
 
         public void LoadDocument(string fileName)
         {
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), fileName);
+            string filePath = Path.Combine(RegistryManager.GetConfigPath(), fileName);
             if (File.Exists(filePath))
             {
                 _wordDoc = _wordApp.Documents.Open(filePath, ReadOnly: true);

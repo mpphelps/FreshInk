@@ -67,7 +67,7 @@ namespace FreshInkManager
             {
                 FileDialog.ShowDialog();
                 string path = FileDialog.FileName;
-                TextBox_TestDocument.Text = path;
+                TextBox_TestDocument.Text = Path.GetFileName(path);
             }
             else
             {

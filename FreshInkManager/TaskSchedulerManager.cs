@@ -4,14 +4,15 @@ using System;
 using Task = Microsoft.Win32.TaskScheduler.Task;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
+using FreshInkRegistryManager;
+using System.IO;
 
 namespace FreshInkManager
 {
     public class TaskSchedulerManager
     {
         private string _taskName = "FreshInk";
-        private string _description = "Prints a test page at a specified increment to keep printer ink from drying out.";
-        private string _executablePath = "C:\\Users\\Michael\\Desktop\\Software Development\\Dev\\FreshInk\\FreshInk\\bin\\Debug\\FreshInk.exe";
         private Task _task;
 
         public TaskSchedulerManager()
@@ -24,9 +25,10 @@ namespace FreshInkManager
                 }
                 else
                 {
-                    _task = CreateTask(_taskName, _description, _executablePath);
+                    string description = "Prints a test page at a specified increment to keep printer ink from drying out.";
+                    string executablePath = Path.Combine(RegistryManager.GetConfigPath(), $"{_taskName}.exe");
+                    _task = CreateTask(_taskName, description, executablePath);
                 }
-
             }
         }
 
@@ -49,7 +51,8 @@ namespace FreshInkManager
 
         public string GetExecutablePath()
         {
-            return _executablePath;
+            ExecAction action = (ExecAction)_task.Definition.Actions[0];
+            return action.Path;
         }
 
         public int GetInterval()
