@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace FreshInkManager
 {
@@ -24,21 +25,36 @@ namespace FreshInkManager
             InitializeComponent();
             _scheduler = new TaskSchedulerManager();
             _parser = new JsonPrintTestConfigParser();
+            _config = _parser.GetConfigs();
         }
 
         private void FreshInkManager_Load(object sender, EventArgs e)
         {
             DatePicker_TargetDate.Value = _scheduler.GetNextRunTime();
             NumericUpDown_Interval.Value = _scheduler.GetInterval();
-            _config = _parser.GetConfigs();
             TextBox_TestDocument.Text = _config.TestDocument;
+
+            var set = new HashSet<string>();
             foreach (var printer in _config.PrinterNames)
             {
                 var item = new ListViewItem();
                 item.Text = printer;
                 item.Checked = true;
                 ListView_Printers.Items.Add(item);
-            }            
+                set.Add(printer);
+            }
+
+            foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                if (!set.Contains(printer))
+                {
+                    var item = new ListViewItem();
+                    item.Text = printer;
+                    item.Checked = false;
+                    ListView_Printers.Items.Add(item);
+                    set.Add(printer);
+                }
+            }
         }
 
         private void Button_SelectTestDocument_Click(object sender, EventArgs e)
