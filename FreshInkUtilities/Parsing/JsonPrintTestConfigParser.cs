@@ -9,7 +9,21 @@ namespace FreshInkUtilities
         private string _filePath;
         public JsonPrintTestConfigParser()
         {
-            _filePath = Path.Combine(RegistryManager.GetConfigPath(), "TestConfig.json");
+            string configPath = RegistryManager.GetConfigPath();
+            if (configPath != null)
+            {
+                if (!Directory.Exists(configPath))
+                {
+                    Directory.CreateDirectory(configPath);
+                }
+            }
+            else
+            {
+                throw new Exception("Missing registry key for config path.  Try reinstalling application.");
+            }
+                
+                
+            _filePath = Path.Combine(configPath, "TestConfig.json");
         }
 
         public JsonPrintTestConfigParser(string filePath)

@@ -102,7 +102,8 @@ namespace FreshInkManager
 
         private void Button_RunTest_Click(object sender, EventArgs e)
         {
-            Process.Start(_scheduler.GetExecutablePath());
+            var program = _scheduler.GetExecutablePath();
+            Process.Start(program);
         }
     }
 }

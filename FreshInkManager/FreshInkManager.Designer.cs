@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreshInkManager));
             this.Button_RunTest = new System.Windows.Forms.Button();
             this.Label_TargetDate = new System.Windows.Forms.Label();
             this.Label_Interval = new System.Windows.Forms.Label();
@@ -214,6 +215,7 @@
             this.Controls.Add(this.Label_TargetDate);
             this.Controls.Add(this.Button_RunTest);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FreshInkManager";
             this.Text = "Fresh Ink Manager";
             this.Load += new System.EventHandler(this.FreshInkManager_Load);
