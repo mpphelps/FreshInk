@@ -26,8 +26,10 @@ namespace FreshInkManager
                 else
                 {
                     string description = "Prints a test page at a specified increment to keep printer ink from drying out.";
-                    string executablePath = Path.Combine(RegistryManager.GetConfigPath(), $"{_taskName}.exe");
-                    _task = CreateTask(_taskName, description, executablePath);
+                    string executablePath = Path.Combine(RegistryManager.GetInstallPath(), $"{_taskName}.exe");
+                    short interval = 20;
+                    DateTime startBoundary = DateTime.Now.AddDays(1);
+                    _task = CreateTask(_taskName, description, executablePath, interval, startBoundary);
                 }
             }
         }
@@ -65,7 +67,7 @@ namespace FreshInkManager
             return 0;
         }
 
-        private Task CreateTask(string taskName, string description, string executablePath, string arguments = "")
+        private Task CreateTask(string taskName, string description, string executablePath, short interval, DateTime startBoundary ,string arguments = "")
         {
             using (TaskService taskService = new TaskService())
             {
@@ -74,6 +76,11 @@ namespace FreshInkManager
 
                 ExecAction execAction = new ExecAction(executablePath, arguments);
                 taskDefinition.Actions.Add(execAction);
+
+                DailyTrigger trigger = new DailyTrigger(interval);
+                trigger.StartBoundary = startBoundary;
+                taskDefinition.Triggers.Clear();
+                taskDefinition.Triggers.Add(trigger);
 
                 return taskService.RootFolder.RegisterTaskDefinition(taskName, taskDefinition);
             }

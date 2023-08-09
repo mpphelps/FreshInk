@@ -2,6 +2,10 @@
 This application keeps all listed printers' ink fresh by running a test job once every specified time interval.
 
 Copy the Sample Test Files to: C:\Users\Public\Documents
+Create the following registry key with two values:
+    Computer\HKEY_CURRENT_USER\Software\FreshInk
+    String ConfigPath = C:\Users\Public\Documents
+    String InstallPath = *Where you build solution*
 
 To make the program run, follow these steps:
     1: Build the solution
