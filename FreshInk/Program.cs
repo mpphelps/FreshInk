@@ -9,7 +9,7 @@ using FreshInkParser;
 
 namespace PrinterTestApp
 {
-    class Program
+    class FreshInkProgram
     {
         static void Main(string[] args)
         {
